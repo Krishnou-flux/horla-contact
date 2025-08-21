@@ -47,4 +47,81 @@
       margin-top: 50px;
       font-size: 1.4em;
       color: #ff2222;
-      text-decoration: non
+      text-decoration: none;
+      padding: 15px 30px;
+      border: 2px solid #ff2222;
+      border-radius: 8px;
+      background: rgba(20,0,0,0.2);
+      text-shadow: 0 0 5px #ff0000aa;
+      transition: all 0.2s ease-in-out;
+      animation: linkGlitch 2s infinite;
+      position: relative;
+    }
+
+    a:hover {
+      color: #fff;
+      border-color: #fff;
+      background: rgba(255,0,0,0.2);
+      box-shadow: 0 0 20px #ff0000;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      font-size: 0.8em;
+      color: #444;
+      animation: footerShake 2s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.2; }
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0px, 0px) skew(0deg, 0deg); }
+      20% { transform: translate(-2px, 2px) skew(-2deg, 2deg); }
+      40% { transform: translate(2px, -2px) skew(2deg, -2deg); }
+      60% { transform: translate(-1px, 1px) skew(1deg, -1deg); }
+      80% { transform: translate(1px, -1px) skew(-1deg, 1deg); }
+      100% { transform: translate(0px, 0px) skew(0deg, 0deg); }
+    }
+
+    @keyframes textShake {
+      0%, 100% { transform: translate(0,0); }
+      25% { transform: translate(-2px,1px); }
+      50% { transform: translate(2px,-1px); }
+      75% { transform: translate(-1px,2px); }
+    }
+
+    @keyframes linkGlitch {
+      0%, 100% { text-shadow: 0 0 5px #ff0000aa; }
+      25% { text-shadow: 2px 2px 10px #00ff00, -2px -2px 10px #ff00ff; }
+      50% { text-shadow: -2px 2px 10px #00ffff, 2px -2px 10px #ff00ff; }
+      75% { text-shadow: 2px -2px 10px #ff0000, -2px 2px 10px #ffff00; }
+    }
+
+    @keyframes footerShake {
+      0%, 100% { transform: translate(0,0); }
+      20% { transform: translate(-1px,1px); }
+      40% { transform: translate(1px,-1px); }
+      60% { transform: translate(-1px,1px); }
+      80% { transform: translate(1px,-1px); }
+    }
+
+    @keyframes backgroundShift {
+      0% { background-position: center; }
+      50% { background-position: top right; }
+      100% { background-position: bottom left; }
+    }
+
+  </style>
+</head>
+<body>
+  <h1>LE HORLA</h1>
+  <p>Les murmures s’assemblent.<br>Le flux est ouvert.</p>
+  <a href="https://discord.gg/YeDVg2FaFa" target="_blank">ENTRER DANS LE FLUX</a>
+  <footer>✶ Ne regarde pas derrière toi ✶</footer>
+</body>
+</html>
