@@ -20,7 +20,7 @@
     color: #8b0000;
     letter-spacing: 5px;
     text-shadow: 0 0 10px #ff0000aa;
-    animation: flicker 3s infinite;
+    /* titre fixe, plus d'animation */
   }
 
   #puzzle {
@@ -35,7 +35,7 @@
     width: 50px;
     height: 50px;
     background: #333;
-    animation: tileBlink 1s infinite alternate;
+    animation: tileBlink 1s infinite alternate, tileMove 1s infinite alternate;
     cursor: pointer;
   }
 
@@ -67,15 +67,27 @@
     box-shadow: 0 0 20px #ff0000;
   }
 
-  @keyframes flicker {
-    0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-    20%, 24%, 55% { opacity: 0.2; }
+  @keyframes tileBlink {
+    0% { background: #222; }
+    25% { background: #555; }
+    50% { background: #222; }
+    75% { background: #666; }
+    100% { background: #333; }
   }
 
-  @keyframes tileBlink {
-    0% { background: #333; }
-    50% { background: #666; }
-    100% { background: #333; }
+  @keyframes tileMove {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(-2px,1px); }
+    50% { transform: translate(2px,-1px); }
+    75% { transform: translate(-1px,2px); }
+    100% { transform: translate(0,0); }
+  }
+
+  @keyframes shake {
+    0%,100% { transform: translate(0,0); }
+    25% { transform: translate(-3px,1px); }
+    50% { transform: translate(3px,-2px); }
+    75% { transform: translate(-2px,2px); }
   }
 
 </style>
@@ -94,7 +106,7 @@
   const puzzle = document.getElementById('puzzle');
   const linkContainer = document.getElementById('linkContainer');
 
-  // Créer 25 tuiles et une rouge aléatoire
+  // Créer 25 tuiles et choisir une rouge aléatoire
   const redIndex = Math.floor(Math.random() * 25);
 
   for(let i=0; i<25; i++){
@@ -108,13 +120,14 @@
         linkContainer.style.display = 'block';
       } else {
         tile.style.animation = 'shake 0.3s';
-        setTimeout(() => tile.style.animation = '', 300);
+        setTimeout(() => {
+          tile.style.animation = 'tileBlink 1s infinite alternate, tileMove 1s infinite alternate';
+        }, 300);
       }
     });
 
     puzzle.appendChild(tile);
   }
-
 </script>
 </body>
 </html>
