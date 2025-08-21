@@ -13,55 +13,38 @@
       padding: 80px 20px;
       height: 100vh;
       overflow: hidden;
+      animation: backgroundShift 10s infinite alternate;
     }
+
     h1 {
       font-size: 3em;
       color: #8b0000;
       letter-spacing: 5px;
-      text-shadow: 0 0 10px #ff0000aa;
-      animation: flicker 3s infinite;
+      text-shadow: 0 0 10px #ff0000aa, 2px 2px 0 #ff00ff55, -2px -2px 0 #00ffff55;
+      animation: flicker 3s infinite, glitch 0.3s infinite;
+      position: relative;
     }
+
+    h1::after, h1::before {
+      content: "LE HORLA";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      color: #ff00ff33;
+      clip: rect(0, 900px, 0, 0);
+    }
+
     p {
       font-size: 1.2em;
       margin-top: 30px;
       color: #999;
+      animation: textShake 1.5s infinite;
     }
+
     a {
       display: inline-block;
       margin-top: 50px;
       font-size: 1.4em;
       color: #ff2222;
-      text-decoration: none;
-      padding: 15px 30px;
-      border: 2px solid #ff2222;
-      border-radius: 8px;
-      background: rgba(20,0,0,0.2);
-      text-shadow: 0 0 5px #ff0000aa;
-      transition: all 0.3s ease-in-out;
-    }
-    a:hover {
-      color: #fff;
-      border-color: #fff;
-      background: rgba(255,0,0,0.2);
-      box-shadow: 0 0 20px #ff0000;
-    }
-    footer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      font-size: 0.8em;
-      color: #444;
-    }
-    @keyframes flicker {
-      0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-      20%, 24%, 55% { opacity: 0.2; }
-    }
-  </style>
-</head>
-<body>
-  <h1>LE HORLA</h1>
-  <p>Les murmures s’assemblent.<br>Le flux est ouvert.</p>
-  <a href="https://discord.gg/YeDVg2FaFa" target="_blank">ENTRER DANS LE FLUX</a>
-  <footer>✶ Ne regarde pas derrière toi ✶</footer>
-</body>
-</html>
+      text-decoration: non
