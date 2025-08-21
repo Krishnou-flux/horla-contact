@@ -13,26 +13,14 @@
       padding: 80px 20px;
       height: 100vh;
       overflow: hidden;
-      animation: backgroundShift 10s infinite alternate;
     }
 
     h1 {
       font-size: 3em;
       color: #8b0000;
       letter-spacing: 5px;
-      text-shadow: 0 0 10px #ff0000aa, 2px 2px 0 #ff00ff55, -2px -2px 0 #00ffff55;
-      animation: flicker 3s infinite, glitch 0.3s infinite;
-      position: relative;
-    }
-
-    h1::after, h1::before {
-      content: "LE HORLA";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      color: #ff00ff33;
-      clip: rect(0, 900px, 0, 0);
+      text-shadow: 0 0 10px #ff0000aa;
+      animation: flicker 3s infinite, h1Shake 0.5s infinite;
     }
 
     p {
@@ -79,20 +67,18 @@
       20%, 24%, 55% { opacity: 0.2; }
     }
 
-    @keyframes glitch {
-      0% { transform: translate(0px, 0px) skew(0deg, 0deg); }
-      20% { transform: translate(-2px, 2px) skew(-2deg, 2deg); }
-      40% { transform: translate(2px, -2px) skew(2deg, -2deg); }
-      60% { transform: translate(-1px, 1px) skew(1deg, -1deg); }
-      80% { transform: translate(1px, -1px) skew(-1deg, 1deg); }
-      100% { transform: translate(0px, 0px) skew(0deg, 0deg); }
-    }
-
-    @keyframes textShake {
+    @keyframes h1Shake {
       0%, 100% { transform: translate(0,0); }
       25% { transform: translate(-2px,1px); }
       50% { transform: translate(2px,-1px); }
       75% { transform: translate(-1px,2px); }
+    }
+
+    @keyframes textShake {
+      0%, 100% { transform: translate(0,0); }
+      25% { transform: translate(-1px,1px); }
+      50% { transform: translate(1px,-1px); }
+      75% { transform: translate(-1px,1px); }
     }
 
     @keyframes linkGlitch {
@@ -109,13 +95,6 @@
       60% { transform: translate(-1px,1px); }
       80% { transform: translate(1px,-1px); }
     }
-
-    @keyframes backgroundShift {
-      0% { background-position: center; }
-      50% { background-position: top right; }
-      100% { background-position: bottom left; }
-    }
-
   </style>
 </head>
 <body>
