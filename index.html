@@ -1,106 +1,120 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Le Horla – Flux</title>
-  <style>
-    body {
-      margin: 0;
-      background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
-      color: #c0c0c0;
-      font-family: "Courier New", monospace;
-      text-align: center;
-      padding: 80px 20px;
-      height: 100vh;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>Le Horla – Flux</title>
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    color: #c0c0c0;
+    font-family: "Courier New", monospace;
+    text-align: center;
+    padding: 50px;
+    height: 100vh;
+    overflow: hidden;
+  }
 
-    h1 {
-      font-size: 3em;
-      color: #8b0000;
-      letter-spacing: 5px;
-      text-shadow: 0 0 10px #ff0000aa;
-      animation: flicker 3s infinite, h1Shake 0.5s infinite;
-    }
+  h1 {
+    font-size: 3em;
+    color: #8b0000;
+    letter-spacing: 5px;
+    text-shadow: 0 0 10px #ff0000aa;
+    animation: flicker 3s infinite;
+  }
 
-    p {
-      font-size: 1.2em;
-      margin-top: 30px;
-      color: #999;
-      animation: textShake 1.5s infinite;
-    }
+  #puzzle {
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    grid-gap: 5px;
+    justify-content: center;
+    margin-top: 50px;
+  }
 
-    a {
-      display: inline-block;
-      margin-top: 50px;
-      font-size: 1.4em;
-      color: #ff2222;
-      text-decoration: none;
-      padding: 15px 30px;
-      border: 2px solid #ff2222;
-      border-radius: 8px;
-      background: rgba(20,0,0,0.2);
-      text-shadow: 0 0 5px #ff0000aa;
-      transition: all 0.2s ease-in-out;
-      animation: linkGlitch 2s infinite;
-      position: relative;
-    }
+  .tile {
+    width: 50px;
+    height: 50px;
+    background: #333;
+    animation: tileBlink 1s infinite alternate;
+    cursor: pointer;
+  }
 
-    a:hover {
-      color: #fff;
-      border-color: #fff;
-      background: rgba(255,0,0,0.2);
-      box-shadow: 0 0 20px #ff0000;
-    }
+  .tile.red {
+    background: #8b0000;
+    animation: none;
+  }
 
-    footer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      font-size: 0.8em;
-      color: #444;
-      animation: footerShake 2s infinite;
-    }
+  #linkContainer {
+    display: none;
+    margin-top: 40px;
+  }
 
-    @keyframes flicker {
-      0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-      20%, 24%, 55% { opacity: 0.2; }
-    }
+  a {
+    color: #ff2222;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #ff2222;
+    border-radius: 8px;
+    background: rgba(20,0,0,0.2);
+    text-shadow: 0 0 5px #ff0000aa;
+    transition: all 0.2s ease-in-out;
+  }
 
-    @keyframes h1Shake {
-      0%, 100% { transform: translate(0,0); }
-      25% { transform: translate(-2px,1px); }
-      50% { transform: translate(2px,-1px); }
-      75% { transform: translate(-1px,2px); }
-    }
+  a:hover {
+    color: #fff;
+    border-color: #fff;
+    background: rgba(255,0,0,0.2);
+    box-shadow: 0 0 20px #ff0000;
+  }
 
-    @keyframes textShake {
-      0%, 100% { transform: translate(0,0); }
-      25% { transform: translate(-1px,1px); }
-      50% { transform: translate(1px,-1px); }
-      75% { transform: translate(-1px,1px); }
-    }
+  @keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+    20%, 24%, 55% { opacity: 0.2; }
+  }
 
-    @keyframes linkGlitch {
-      0%, 100% { text-shadow: 0 0 5px #ff0000aa; }
-      25% { text-shadow: 2px 2px 10px #00ff00, -2px -2px 10px #ff00ff; }
-      50% { text-shadow: -2px 2px 10px #00ffff, 2px -2px 10px #ff00ff; }
-      75% { text-shadow: 2px -2px 10px #ff0000, -2px 2px 10px #ffff00; }
-    }
+  @keyframes tileBlink {
+    0% { background: #333; }
+    50% { background: #666; }
+    100% { background: #333; }
+  }
 
-    @keyframes footerShake {
-      0%, 100% { transform: translate(0,0); }
-      20% { transform: translate(-1px,1px); }
-      40% { transform: translate(1px,-1px); }
-      60% { transform: translate(-1px,1px); }
-      80% { transform: translate(1px,-1px); }
-    }
-  </style>
+</style>
 </head>
 <body>
-  <h1>LE HORLA</h1>
-  <p>Les murmures s’assemblent.<br>Le flux est ouvert.</p>
+<h1>LE HORLA</h1>
+<p>Les murmures s’assemblent.<br>Le flux est verrouillé. Trouve la pièce rouge pour continuer.</p>
+
+<div id="puzzle"></div>
+
+<div id="linkContainer">
   <a href="https://discord.gg/YeDVg2FaFa" target="_blank">ENTRER DANS LE FLUX</a>
-  <footer>✶ Ne regarde pas derrière toi ✶</footer>
+</div>
+
+<script>
+  const puzzle = document.getElementById('puzzle');
+  const linkContainer = document.getElementById('linkContainer');
+
+  // Créer 25 tuiles et une rouge aléatoire
+  const redIndex = Math.floor(Math.random() * 25);
+
+  for(let i=0; i<25; i++){
+    const tile = document.createElement('div');
+    tile.classList.add('tile');
+    if(i === redIndex) tile.classList.add('red');
+
+    tile.addEventListener('click', () => {
+      if(tile.classList.contains('red')){
+        puzzle.style.display = 'none';
+        linkContainer.style.display = 'block';
+      } else {
+        tile.style.animation = 'shake 0.3s';
+        setTimeout(() => tile.style.animation = '', 300);
+      }
+    });
+
+    puzzle.appendChild(tile);
+  }
+
+</script>
 </body>
 </html>
