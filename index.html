@@ -34,13 +34,8 @@
     width: 50px;
     height: 50px;
     background: #333;
-    animation: tileBlink 0.5s infinite alternate, tileMove 1s infinite alternate;
     cursor: pointer;
-  }
-
-  .tile.red {
-    background: #660000; /* rouge plus sombre pour se fondre */
-    animation: tileBlinkRed 0.5s infinite alternate, tileMove 1s infinite alternate;
+    transition: all 0.2s linear;
   }
 
   #linkContainer {
@@ -66,30 +61,6 @@
     box-shadow: 0 0 20px #ff0000;
   }
 
-  @keyframes tileBlink {
-    0% { background: #222; }
-    25% { background: #555; }
-    50% { background: #222; }
-    75% { background: #666; }
-    100% { background: #333; }
-  }
-
-  @keyframes tileBlinkRed {
-    0% { background: #440000; }
-    25% { background: #660000; }
-    50% { background: #550000; }
-    75% { background: #660000; }
-    100% { background: #440000; }
-  }
-
-  @keyframes tileMove {
-    0% { transform: translate(0,0); }
-    25% { transform: translate(-2px,1px); }
-    50% { transform: translate(2px,-1px); }
-    75% { transform: translate(-1px,2px); }
-    100% { transform: translate(0,0); }
-  }
-
   @keyframes shake {
     0%,100% { transform: translate(0,0); }
     25% { transform: translate(-3px,1px); }
@@ -100,43 +71,4 @@
 </head>
 <body>
 <h1>LE HORLA</h1>
-<p>Les murmures s’assemblent.<br>Le flux est verrouillé. Trouve la pièce rouge pour continuer.</p>
-
-<div id="puzzle"></div>
-
-<div id="linkContainer">
-  <a href="https://discord.gg/YeDVg2FaFa" target="_blank">ENTRER DANS LE FLUX</a>
-</div>
-
-<script>
-  const puzzle = document.getElementById('puzzle');
-  const linkContainer = document.getElementById('linkContainer');
-
-  const redIndex = Math.floor(Math.random() * 25);
-
-  for(let i=0; i<25; i++){
-    const tile = document.createElement('div');
-    tile.classList.add('tile');
-    if(i === redIndex) tile.classList.add('red');
-
-    tile.addEventListener('click', () => {
-      if(tile.classList.contains('red')){
-        puzzle.style.display = 'none';
-        linkContainer.style.display = 'block';
-      } else {
-        tile.style.animation = 'shake 0.3s';
-        setTimeout(() => {
-          if(tile.classList.contains('red')){
-            tile.style.animation = 'tileBlinkRed 0.5s infinite alternate, tileMove 1s infinite alternate';
-          } else {
-            tile.style.animation = 'tileBlink 0.5s infinite alternate, tileMove 1s infinite alternate';
-          }
-        }, 300);
-      }
-    });
-
-    puzzle.appendChild(tile);
-  }
-</script>
-</body>
-</html>
+<p>Les murmures s’assemblent.<br>Le flux est verrouillé. Trouve la pièce rouge pou
