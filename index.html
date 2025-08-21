@@ -20,7 +20,6 @@
     color: #8b0000;
     letter-spacing: 5px;
     text-shadow: 0 0 10px #ff0000aa;
-    /* titre fixe, plus d'animation */
   }
 
   #puzzle {
@@ -35,13 +34,13 @@
     width: 50px;
     height: 50px;
     background: #333;
-    animation: tileBlink 1s infinite alternate, tileMove 1s infinite alternate;
+    animation: tileBlink 0.5s infinite alternate, tileMove 1s infinite alternate;
     cursor: pointer;
   }
 
   .tile.red {
-    background: #8b0000;
-    animation: none;
+    background: #660000; /* rouge plus sombre pour se fondre */
+    animation: tileBlinkRed 0.5s infinite alternate, tileMove 1s infinite alternate;
   }
 
   #linkContainer {
@@ -75,6 +74,14 @@
     100% { background: #333; }
   }
 
+  @keyframes tileBlinkRed {
+    0% { background: #440000; }
+    25% { background: #660000; }
+    50% { background: #550000; }
+    75% { background: #660000; }
+    100% { background: #440000; }
+  }
+
   @keyframes tileMove {
     0% { transform: translate(0,0); }
     25% { transform: translate(-2px,1px); }
@@ -89,7 +96,6 @@
     50% { transform: translate(3px,-2px); }
     75% { transform: translate(-2px,2px); }
   }
-
 </style>
 </head>
 <body>
@@ -106,7 +112,6 @@
   const puzzle = document.getElementById('puzzle');
   const linkContainer = document.getElementById('linkContainer');
 
-  // Créer 25 tuiles et choisir une rouge aléatoire
   const redIndex = Math.floor(Math.random() * 25);
 
   for(let i=0; i<25; i++){
@@ -121,7 +126,11 @@
       } else {
         tile.style.animation = 'shake 0.3s';
         setTimeout(() => {
-          tile.style.animation = 'tileBlink 1s infinite alternate, tileMove 1s infinite alternate';
+          if(tile.classList.contains('red')){
+            tile.style.animation = 'tileBlinkRed 0.5s infinite alternate, tileMove 1s infinite alternate';
+          } else {
+            tile.style.animation = 'tileBlink 0.5s infinite alternate, tileMove 1s infinite alternate';
+          }
         }, 300);
       }
     });
